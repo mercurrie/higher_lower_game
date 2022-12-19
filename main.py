@@ -1,7 +1,7 @@
 import random
 import art
 import os
-from game_data import data
+import json
 
 # compare() calculates which choice has more followers and checks if user's answer is that choice. Returns bool
 def compare(choice_a: dict, choice_b: dict) -> bool:
@@ -12,7 +12,7 @@ def compare(choice_a: dict, choice_b: dict) -> bool:
     return user_answer == solution
 
 # coninue_game() calls compare(). While compare returns True game will continue. Returns final score
-def continue_game(subject1: dict, subject2: dict) -> int:
+def continue_game(subject1: dict, subject2: dict, data: list) -> int:
     end = compare(choice_a = subject1, choice_b = subject2)
     score = 0
     
@@ -34,11 +34,13 @@ def print_ui(subject1: dict, subject2: dict):
     print(f"Compare B: {subject2['name']}, a {subject2['description']}, from {subject2['country']}.")
     
 def play():
+    data_file = open('game_data.json')
+    data = json.load(data_file)
     subject1 = random.choice(data)
     subject2 = random.choice(data)
     
     print_ui(subject1 = subject1, subject2 = subject2)
-    final_score = continue_game(subject1 = subject1, subject2 = subject2)
+    final_score = continue_game(subject1 = subject1, subject2 = subject2, data = data)
     os.system('cls')
     print(art.logo)
     print(f"Sorry, that's the wrong answer. Final score: {final_score}.")
