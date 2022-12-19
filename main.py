@@ -44,6 +44,7 @@ def play():
     os.system('cls')
     print(art.logo)
     print(f"Sorry, that's the wrong answer. Final score: {final_score}.")
+    data_file.close()
 
 if __name__ == '__main__':
     play()
